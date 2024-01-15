@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MyApp.MySplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/black</item>
+        <item name="android:windowSplashScreenAnimationDuration">2000</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/baseline_news_24</item>
+        <item name="postSplashScreenTheme">@style/Theme.NewsApp</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/logo</item>
+    </style>
+</resources>

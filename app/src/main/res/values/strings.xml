@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">News App</string>
+    <string name="next">Next</string>
+    <string name="back">Back\n</string>
+    <string name="image_onboarding">Image Onboarding</string>
+    <string name="onboarding_1_title">Quick Finance News</string>
+    <string name="onboarding_1_description">Explore the Quick Finance News app, your reliable source for up-to-date financial information. Get daily updates on hot topics, in-depth analyses of financial markets, and investment trends. \n</string>
+    <string name="onboarding_2_title">Daily Life Updates</string>
+    <string name="onboarding_2_description">Discover the Daily Life Updates app, your reliable source for staying informed about everyday life. Experience the convenience of quickly accessing news on daily events, emerging trends, and the hottest topics.</string>
+    <string name="onboarding_3_title">Health Pulse</string>
+    <string name="onboarding_3_description">"Explore the Health Pulse app, your go-to source for swift updates on health-related matters. Stay informed about the latest health news, wellness trends, and vital information for a healthier lifestyle. "</string>
+</resources>
