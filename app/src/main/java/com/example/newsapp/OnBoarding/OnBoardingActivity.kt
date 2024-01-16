@@ -12,7 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.viewpager2.widget.ViewPager2
-import com.example.newsapp.NewsActivity
+import com.example.newsapp.News.NewsActivity
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ActivityOnboardingBinding
 

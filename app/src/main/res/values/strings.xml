@@ -9,4 +9,9 @@
     <string name="onboarding_2_description">Discover the Daily Life Updates app, your reliable source for staying informed about everyday life. Experience the convenience of quickly accessing news on daily events, emerging trends, and the hottest topics.</string>
     <string name="onboarding_3_title">Health Pulse</string>
     <string name="onboarding_3_description">"Explore the Health Pulse app, your go-to source for swift updates on health-related matters. Stay informed about the latest health news, wellness trends, and vital information for a healthier lifestyle. "</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment1_title">Breaking News</string>
+    <string name="fragment2_title">Save News \n</string>
+    <string name="fragment3_title">Setting\n</string>
 </resources>
