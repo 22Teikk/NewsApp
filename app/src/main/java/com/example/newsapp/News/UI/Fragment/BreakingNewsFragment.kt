@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.News.Adapter.NewsAdapter
 import com.example.newsapp.News.Database.ArticleDatabase
 import com.example.newsapp.News.Repository.NewsRepository
-import com.example.newsapp.News.UI.NewsActivity
 import com.example.newsapp.News.UI.NewsViewModelProviderFactory
 import com.example.newsapp.News.Utils.Constant.Companion.SEARCH_TIME_DELAY
 import com.example.newsapp.News.Utils.Resource
@@ -30,22 +29,22 @@ class BreakingNewsFragment : Fragment() {
     lateinit var newsViewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
     lateinit var searchAdapter: NewsAdapter
+    private var job: Job ?= null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBreakingNewsBinding.inflate(inflater, container, false)
-        newsAdapter = NewsAdapter()
-        searchAdapter = NewsAdapter()
-        setUpRecyclerView()
 
+        setUpRecyclerView()
 
         // Create ViewModel
         val newsRepository = NewsRepository(ArticleDatabase(requireContext()))
         val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
         newsViewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
 
-        var job: Job? = null
+        //setEvenClickItemListener()
+
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -73,7 +72,7 @@ class BreakingNewsFragment : Fragment() {
                                     else -> {
                                         hideProgressBar()
                                         respone.message?.let { message ->
-                                            Log.e("sdlkfjsdflk", message)
+                                            Log.e("Search News Error", message)
                                         }
                                     }
                                 }
@@ -103,7 +102,7 @@ class BreakingNewsFragment : Fragment() {
                 else -> {
                     hideProgressBar()
                     respone.message?.let { message ->
-                        Log.e("sdlkfjsdflk", message)
+                        Log.e("Breaking New Error", message)
                     }
                 }
             }
@@ -111,7 +110,21 @@ class BreakingNewsFragment : Fragment() {
         return binding.root
     }
 
+    private fun setEvenClickItemListener() {
+        newsAdapter.setOnItemClickListener {
+            val action = BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(it)
+            findNavController().navigate(action)
+        }
+
+        searchAdapter.setOnItemClickListener {
+            val action = BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(it)
+            findNavController().navigate(action)
+        }
+    }
+
     private fun setUpRecyclerView() {
+        newsAdapter = NewsAdapter(findNavController())
+        searchAdapter = NewsAdapter(findNavController())
         binding.rvBreakingNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(requireContext())

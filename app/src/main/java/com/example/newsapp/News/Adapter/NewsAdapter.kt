@@ -3,16 +3,18 @@ package com.example.newsapp.News.Adapter
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.News.Models.Article
+import com.example.newsapp.News.UI.Fragment.BreakingNewsFragmentDirections
 import com.example.newsapp.News.Utils.Converter
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ItemArticleBinding
 
-class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class NewsAdapter (val navController: NavController): RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     inner class ArticleViewHolder(val binding: ItemArticleBinding): RecyclerView.ViewHolder(binding.root)
 
     private val differCallBack = object : DiffUtil.ItemCallback<Article>() {
@@ -51,7 +53,11 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
             }else
                 tvPublishedAt.text = article.publishedAt
             articleItem.setOnClickListener {
-                onItemClickListener?.let { it(article) }
+                //onItemClickListener?.let { it(article) }
+                if (article != null) {
+                    val action = BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(article)
+                    navController.navigate(action)
+                }
             }
         }
     }
