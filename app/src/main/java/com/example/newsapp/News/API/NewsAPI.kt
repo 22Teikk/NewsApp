@@ -21,6 +21,8 @@ interface NewsAPI {
     suspend fun searchForNews(
         @Query("q")
         searchQuery: String,
+//        @Query("sortBy")
+//        sortBy: String = "publishedAt",
         @Query("page")
         pageNumber: Int = 1,
         @Query("apiKey")
