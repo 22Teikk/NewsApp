@@ -19,6 +19,14 @@
 
     <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />
 
-    <style name="NewsApp.Theme" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="NewsApp.Theme" parent="Theme.Material3.DayNight.NoActionBar"/>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="searchIcon">@drawable/baseline_search_24</item>
+        <item name="queryBackground">@android:color/transparent</item>
+        <item name="queryHint">"Search Anything News"</item>
+        <item name="iconifiedByDefault">false</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:background">@drawable/radius_drawable</item>
     </style>
 </resources>

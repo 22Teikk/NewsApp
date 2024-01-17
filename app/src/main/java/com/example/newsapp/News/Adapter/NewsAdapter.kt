@@ -1,5 +1,6 @@
 package com.example.newsapp.News.Adapter
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.News.Models.Article
+import com.example.newsapp.News.Utils.Converter
+import com.example.newsapp.R
 import com.example.newsapp.databinding.ItemArticleBinding
 
 class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
@@ -37,11 +40,16 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = differ.currentList[position]
         holder.binding.apply {
-            Glide.with(this.root).load(article.urlToImage).into(ivArticleImage)
+            if (article.urlToImage == "") {
+                ivArticleImage.setImageResource(R.drawable.baseline_news_24)
+            }else
+                Glide.with(this.root).load(article.urlToImage).into(ivArticleImage)
             tvSource.text = article.source.name
             tvTitle.text = article.title
-            tvDescription.text = article.description
-            tvPublishedAt.text = article.publishedAt
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                tvPublishedAt.text = Converter.FormatFullDate(article.publishedAt)
+            }else
+                tvPublishedAt.text = article.publishedAt
             articleItem.setOnClickListener {
                 onItemClickListener?.let { it(article) }
             }
