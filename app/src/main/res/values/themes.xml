@@ -20,6 +20,5 @@
     <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />
 
     <style name="NewsApp.Theme" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="backgroundColor">@color/white</item>
     </style>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.newsapp.News.Database
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
@@ -18,19 +19,18 @@ abstract class ArticleDatabase: RoomDatabase() {
 
     companion object {
         @Volatile
-        private var instance: ArticleDatabase ?= null
-        fun getInstaceDatabae(context: Context): ArticleDatabase {
-            if (instance != null)
-                return instance!!
-            synchronized(this) {
-                val tempInstance = Room.databaseBuilder(
-                    context.applicationContext,
-                    ArticleDatabase::class.java,
-                    "articles.db"
-                ).build()
-                instance = tempInstance
-                return instance!!
-            }
+        private var instance: ArticleDatabase? = null
+        private val LOCK = Any()
+
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
+            instance ?: createDatabase(context).also { instance = it }
         }
+
+        private fun createDatabase(context: Context) =
+            Room.databaseBuilder(
+                context.applicationContext,
+                ArticleDatabase::class.java,
+                "article_db.db"
+            ).build()
     }
 }
