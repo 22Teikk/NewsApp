@@ -10,12 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.News.Models.Article
 import com.example.newsapp.News.UI.Fragment.BreakingNewsFragmentDirections
+import com.example.newsapp.News.UI.Fragment.SaveNewsFragmentDirections
 import com.example.newsapp.News.Utils.Converter
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ItemArticleBinding
 
-class NewsAdapter (val navController: NavController): RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
-    inner class ArticleViewHolder(val binding: ItemArticleBinding): RecyclerView.ViewHolder(binding.root)
+class NewsAdapter(private val navController: NavController, private val nameFragment: String = "Breaking") :
+    RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+    inner class ArticleViewHolder(val binding: ItemArticleBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     private val differCallBack = object : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
@@ -44,19 +47,28 @@ class NewsAdapter (val navController: NavController): RecyclerView.Adapter<NewsA
         holder.binding.apply {
             if (article.urlToImage == "") {
                 ivArticleImage.setImageResource(R.drawable.baseline_news_24)
-            }else
+            } else
                 Glide.with(this.root).load(article.urlToImage).into(ivArticleImage)
             tvSource.text = article.source.name
             tvTitle.text = article.title
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 tvPublishedAt.text = Converter.FormatFullDate(article.publishedAt)
-            }else
+            } else
                 tvPublishedAt.text = article.publishedAt
             articleItem.setOnClickListener {
                 //onItemClickListener?.let { it(article) }
                 if (article != null) {
-                    val action = BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(article)
-                    navController.navigate(action)
+                    if (nameFragment == "Breaking") {
+                        val action =
+                            BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(
+                                article
+                            )
+                        navController.navigate(action)
+                    }
+                    else {
+                        val action = SaveNewsFragmentDirections.actionSaveNewsFragmentToArticleFragment(article)
+                        navController.navigate(action)
+                    }
                 }
             }
         }
