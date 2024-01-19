@@ -49,10 +49,10 @@ class NewsAdapter(private val navController: NavController, private val nameFrag
                 ivArticleImage.setImageResource(R.drawable.baseline_news_24)
             } else
                 Glide.with(this.root).load(article.urlToImage).into(ivArticleImage)
-            tvSource.text = article.source.name
+            tvSource.text = article.source?.name
             tvTitle.text = article.title
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                tvPublishedAt.text = Converter.FormatFullDate(article.publishedAt)
+                tvPublishedAt.text = article.publishedAt?.let { Converter.FormatFullDate(it) }
             } else
                 tvPublishedAt.text = article.publishedAt
             articleItem.setOnClickListener {

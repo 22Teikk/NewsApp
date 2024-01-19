@@ -39,7 +39,7 @@ class ArticleFragment : Fragment() {
                     }
                 }
 
-                loadUrl(article.url)
+                article.url?.let { loadUrl(it) }
             }
 
             saveFavorites.setOnClickListener {
