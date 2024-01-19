@@ -45,7 +45,7 @@ class BreakingNewsFragment : Fragment() {
 
         // Create ViewModel
         val newsRepository = NewsRepository(ArticleDatabase(requireContext()))
-        val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
+        val viewModelProviderFactory = NewsViewModelProviderFactory(requireActivity().application, newsRepository)
         newsViewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
 
         //setEvenClickItemListener()
@@ -115,7 +115,7 @@ class BreakingNewsFragment : Fragment() {
                 else -> {
                     hideProgressBar()
                     respone.message?.let { message ->
-                        Log.e("Breaking New Error", message)
+                        binding.noInternet.visibility = View.VISIBLE
                     }
                 }
             }
@@ -206,7 +206,6 @@ class BreakingNewsFragment : Fragment() {
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItemSearch && isNotAtBeginning && isTotalMoreThanVisible && isScrollingSearch
             if (shouldPaginate) {
                 newsViewModel.getSearchNews(binding.searchView.query.toString())
-                Log.d("asdfkhjlashf", binding.searchView.query.toString())
                 isScrollingSearch = false
             }
         }

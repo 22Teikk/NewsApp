@@ -8,6 +8,14 @@
     style="@style/SCREEN"
     tools:context=".News.UI.Fragment.BreakingNewsFragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/no_internet"
+        android:scaleType="fitCenter"
+        android:id="@+id/noInternet"
+        android:visibility="gone"/>
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:elevation="2dp"
@@ -63,5 +71,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

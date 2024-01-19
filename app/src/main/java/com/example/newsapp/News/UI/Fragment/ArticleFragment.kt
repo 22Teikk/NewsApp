@@ -29,7 +29,7 @@ class ArticleFragment : Fragment() {
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
         val article = args.article
         val newsRepository = NewsRepository(ArticleDatabase(requireContext()))
-        val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
+        val viewModelProviderFactory = NewsViewModelProviderFactory(requireActivity().application, newsRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
         binding.apply {
             webView.apply {

@@ -30,7 +30,7 @@ class SaveNewsFragment : Fragment() {
     ): View? {
         _binding = FragmentSaveNewsBinding.inflate(inflater, container, false)
         val newsRepository = NewsRepository(ArticleDatabase(requireContext()))
-        val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
+        val viewModelProviderFactory = NewsViewModelProviderFactory(requireActivity().application ,newsRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
         setUpRecyclerView()
         getSaveNews()
