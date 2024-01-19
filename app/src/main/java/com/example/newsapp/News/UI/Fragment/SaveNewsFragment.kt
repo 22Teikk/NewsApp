@@ -54,7 +54,7 @@ class SaveNewsFragment : Fragment() {
                 val position = viewHolder.adapterPosition
                 val article = saveAdapter.differ.currentList[position]
                 viewModel.deleteArticle(article)
-                Snackbar.make(binding.root, "Delete Success", Snackbar.LENGTH_LONG).apply {
+                Snackbar.make(binding.snackBarContent, "Delete Success", Snackbar.LENGTH_LONG).apply {
                     setAction("Undo") {
                         viewModel.saveArticle(article)
                     }

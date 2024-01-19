@@ -44,7 +44,7 @@ class ArticleFragment : Fragment() {
 
             saveFavorites.setOnClickListener {
                 viewModel.saveArticle(article)
-                Snackbar.make( binding.root, "Save Success", Snackbar.LENGTH_LONG).show()
+                Snackbar.make( binding.snackBarContent , "Save Success", Snackbar.LENGTH_LONG).show()
             }
 
             back.setOnClickListener {
