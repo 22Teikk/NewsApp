@@ -39,6 +39,11 @@ class NewsViewModel (
         safeBreakingNewsCallAPI(countryCode)
     }
 
+    fun getBreakingNewsWhenHaveInternet(countryCode: String) = viewModelScope.launch {
+        val response = newsRepository.getBreakingNews(countryCode, breakingNewsPage)
+        breakingNews.postValue(handleBreakingNewsResponse(response))
+    }
+
     fun getSearchNews(searchQuery: String) = viewModelScope.launch {
         safeSearchNewsCallAPI(searchQuery)
     }

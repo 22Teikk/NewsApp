@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
-import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapp.CheckNetworkConnection
 import com.example.newsapp.News.Adapter.NewsAdapter
 import com.example.newsapp.News.Database.ArticleDatabase
 import com.example.newsapp.News.Repository.NewsRepository
@@ -23,6 +23,7 @@ import com.example.newsapp.News.Utils.Constant.Companion.QUERY_SEARCH_PAGE_SIZE
 import com.example.newsapp.News.Utils.Constant.Companion.SEARCH_TIME_DELAY
 import com.example.newsapp.News.Utils.Resource
 import com.example.newsapp.databinding.FragmentBreakingNewsBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -47,9 +48,23 @@ class BreakingNewsFragment : Fragment() {
         val newsRepository = NewsRepository(ArticleDatabase(requireContext()))
         val viewModelProviderFactory = NewsViewModelProviderFactory(requireActivity().application, newsRepository)
         newsViewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
+        getBreakingNews()
+        searchViewLogic()
 
-        //setEvenClickItemListener()
+        val networkConnection = CheckNetworkConnection(requireContext())
+        networkConnection.observe(viewLifecycleOwner, Observer { isConnected ->
+            if (isConnected) {
+                binding.noInternet.visibility = View.GONE
+                newsViewModel.getBreakingNewsWhenHaveInternet("us")
+                Snackbar.make(binding.root, "Internet connected", Snackbar.LENGTH_LONG).show()
+            }else {
+                Snackbar.make(binding.snackBarContent, "Lost Internet connection", Snackbar.LENGTH_LONG).show()
+            }
+        })
+        return binding.root
+    }
 
+    private fun searchViewLogic() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -97,6 +112,9 @@ class BreakingNewsFragment : Fragment() {
             }
         })
 
+    }
+
+    private fun getBreakingNews() {
         newsViewModel.breakingNews.observe(viewLifecycleOwner, Observer { respone ->
             when (respone) {
                 is Resource.Success -> {
@@ -120,7 +138,6 @@ class BreakingNewsFragment : Fragment() {
                 }
             }
         })
-        return binding.root
     }
 
     private fun setUpRecyclerView() {
