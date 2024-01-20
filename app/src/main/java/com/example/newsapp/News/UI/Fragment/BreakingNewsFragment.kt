@@ -17,6 +17,7 @@ import com.example.newsapp.News.CheckNetworkConnection
 import com.example.newsapp.News.Adapter.NewsAdapter
 import com.example.newsapp.News.Database.ArticleDatabase
 import com.example.newsapp.News.Repository.NewsRepository
+import com.example.newsapp.News.UI.NewsActivity
 import com.example.newsapp.News.UI.NewsViewModelProviderFactory
 import com.example.newsapp.News.Utils.Constant.Companion.QUERY_PAGE_SIZE
 import com.example.newsapp.News.Utils.Constant.Companion.QUERY_SEARCH_PAGE_SIZE
@@ -50,9 +51,7 @@ class BreakingNewsFragment : Fragment() {
         newsViewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
         getBreakingNews()
         searchViewLogic()
-
-        val networkConnection = CheckNetworkConnection(requireContext())
-        networkConnection.observe(viewLifecycleOwner, Observer { isConnected ->
+        newsViewModel.networkConnection.observe(viewLifecycleOwner, Observer { isConnected ->
             if (isConnected) {
                 binding.noInternet.visibility = View.GONE
                 newsViewModel.getBreakingNewsWhenHaveInternet("us")
@@ -63,7 +62,6 @@ class BreakingNewsFragment : Fragment() {
         })
         return binding.root
     }
-
     private fun searchViewLogic() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {

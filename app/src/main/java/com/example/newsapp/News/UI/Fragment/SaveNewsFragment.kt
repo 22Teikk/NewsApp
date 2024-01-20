@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.News.Adapter.NewsAdapter
+import com.example.newsapp.News.CheckNetworkConnection
 import com.example.newsapp.News.Database.ArticleDatabase
 import com.example.newsapp.News.Repository.NewsRepository
 import com.example.newsapp.News.UI.NewsActivity

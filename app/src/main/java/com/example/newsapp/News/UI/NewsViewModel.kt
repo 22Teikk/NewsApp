@@ -6,9 +6,11 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newsapp.News.CheckNetworkConnection
 import com.example.newsapp.News.Models.Article
 import com.example.newsapp.News.Models.NewsResponse
 import com.example.newsapp.News.NewsApplication
@@ -30,6 +32,10 @@ class NewsViewModel (
     val searchingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var searchNewsPage = 1
     var searchNewsResponse: NewsResponse? = null
+
+    val networkConnection: LiveData<Boolean> by lazy {
+        CheckNetworkConnection(application.applicationContext)
+    }
 
     init {
         getBreakingNews("us")
