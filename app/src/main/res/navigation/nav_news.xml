@@ -36,6 +36,7 @@
         android:name="com.example.newsapp.News.UI.Fragment.SettingFragment"
         android:label="Setting"
         tools:layout="@layout/fragment_setting" />
+
     <fragment
         android:id="@+id/articleFragment"
         android:name="com.example.newsapp.News.UI.Fragment.ArticleFragment"
