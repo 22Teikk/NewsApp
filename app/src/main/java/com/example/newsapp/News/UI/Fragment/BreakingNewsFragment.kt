@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapp.CheckNetworkConnection
+import com.example.newsapp.News.CheckNetworkConnection
 import com.example.newsapp.News.Adapter.NewsAdapter
 import com.example.newsapp.News.Database.ArticleDatabase
 import com.example.newsapp.News.Repository.NewsRepository
@@ -56,7 +56,7 @@ class BreakingNewsFragment : Fragment() {
             if (isConnected) {
                 binding.noInternet.visibility = View.GONE
                 newsViewModel.getBreakingNewsWhenHaveInternet("us")
-                Snackbar.make(binding.root, "Internet connected", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.snackBarContent, "Internet connected", Snackbar.LENGTH_LONG).show()
             }else {
                 Snackbar.make(binding.snackBarContent, "Lost Internet connection", Snackbar.LENGTH_LONG).show()
             }

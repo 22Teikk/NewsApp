@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.News
 
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
